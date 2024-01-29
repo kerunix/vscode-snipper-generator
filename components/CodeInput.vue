@@ -56,7 +56,7 @@ defineShortcuts({
 
 function handleCommandPaletteSelection(variable: string) {
   if (input.value) {
-    insertStringInInput(input.value, variable)
+    insertStringInInput(input.value, `$${variable}`)
   }
 }
 </script>
