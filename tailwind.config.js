@@ -4,10 +4,9 @@ export default {
   theme: {
     extend: {
       backgroundColor: {
-        "editor-dark": '#121212' // "editor.background" in Antfu's 'Vitesse Dark' VSCode Theme
-      }
+        'editor-dark': '#121212', // "editor.background" in Antfu's 'Vitesse Dark' VSCode Theme
+      },
     },
   },
   plugins: [],
 }
-

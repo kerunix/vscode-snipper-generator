@@ -1,7 +1,7 @@
 {
   "name": "nuxt-app",
-  "private": true,
   "type": "module",
+  "private": true,
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -11,19 +11,21 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
+  "dependencies": {
+    "@iconify-json/carbon": "^1.1.28",
+    "@vueuse/core": "^10.6.1",
+    "defu": "^6.1.4",
+    "eslint-plugin-tailwindcss": "^3.14.1"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^2.1.0",
     "@nuxt/devtools": "latest",
-    "@nuxt/ui": "^2.11.0",
+    "@nuxt/ui": "^2.15.2",
     "eslint": "^8.54.0",
-    "nuxt": "^3.8.2",
+    "nuxt": "^3.11.2",
     "shikiji": "^0.9.9",
     "shikiji-transformers": "^0.9.9",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
-  },
-  "dependencies": {
-    "@iconify-json/carbon": "^1.1.28",
-    "@vueuse/core": "^10.6.1"
   }
 }

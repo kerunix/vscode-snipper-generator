@@ -5,11 +5,11 @@ export default function insertStringInInput(input: HTMLTextAreaElement, str: str
 
   const stringBeforeCaret = input.value.substring(
     0,
-    initialSelectionStart
+    initialSelectionStart,
   )
   const stringAfterCaret = input.value.substring(
     initialSelectionEnd,
-    input.textLength
+    input.textLength,
   )
 
   const newValue = `${stringBeforeCaret}${str}${stringAfterCaret}`
@@ -19,7 +19,8 @@ export default function insertStringInInput(input: HTMLTextAreaElement, str: str
   if (newSelectionPostions.length === 0) {
     input.selectionStart = initialSelectionStart + insertionLength
     input.selectionEnd = initialSelectionStart + insertionLength
-  } else {
+  }
+  else {
     input.selectionStart = initialSelectionStart + newSelectionPostions[0]
     input.selectionEnd = initialSelectionStart + newSelectionPostions[1]
   }

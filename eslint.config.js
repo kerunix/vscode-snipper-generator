@@ -1,3 +1,8 @@
-const antfu = require('@antfu/eslint-config').default
+import antfu from '@antfu/eslint-config'
+import { FlatCompat } from '@eslint/eslintrc'
 
-module.exports = antfu()
+const compat = new FlatCompat()
+
+export default antfu({}, ...compat.config({
+  extends: ['plugin:tailwindcss/recommended'],
+}))

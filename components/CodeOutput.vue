@@ -24,33 +24,33 @@ const prettifiedOutput = ref('')
 
 const { copy, copied } = useClipboard({ legacy: true, source: formattedOutput.value })
 
-
 watch(copied, () => {
   if (copied.value) {
     toast.add({
       title: 'Copied to clipboard !',
       timeout: 3000,
-      color: 'green'
+      color: 'green',
     })
   }
 })
-
 
 watchEffect(() => {
   // escape " with \"
   // split lines by line-break
   const separatedSnippet = props.rawSnippetValue
-    .replace(/\\/g, "\\\\")
+    .replace(/\\/g, '\\\\')
     .replace(/"/g, '\\"')
-    .split("\n")
+    .split('\n')
   const separatedSnippetLength = separatedSnippet.length
 
   // add double quotes around each line and comas at the end except for the last one
   // Also add indentation to all lines except for the first one
   const newSnippet = separatedSnippet.map((line, index) => {
     const bodyIndent = '        '
-    if (index === 0) return `"${line}",`
-    if (index === separatedSnippetLength - 1) return `${bodyIndent}"${line}"`
+    if (index === 0)
+      return `"${line}",`
+    if (index === separatedSnippetLength - 1)
+      return `${bodyIndent}"${line}"`
     return `${bodyIndent}"${line}",`
   })
 
@@ -68,17 +68,18 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="h-full bg-transparent rounded flex flex-col gap-y-2">
+  <div class="flex h-full flex-col gap-y-2 rounded bg-transparent">
+    <ColorScheme class="h-full overflow-hidden rounded-t border border-solid border-gray-300 bg-white dark:border-gray-900 dark:bg-editor-dark">
       <div
-        class="border overflow-hidden border-gray-300 dark:border-gray-900 border-solid h-full bg-white dark:bg-editor-dark rounded-t"
+        class="h-full overflow-hidden rounded-t border border-solid border-gray-300 bg-white dark:border-gray-900 dark:bg-editor-dark"
         v-html="prettifiedOutput"
       />
+    </ColorScheme>
     <button
-      class="w-full border border-solid border-gray-300 dark:border-gray-900 p-6 resize-none rounded-b bg-gray-100 dark:bg-editor-dark focus:outline-none focus:ring focus:ring-gray-700"
+      class="w-full resize-none rounded-b border border-solid border-gray-300 bg-gray-100 p-6 focus:outline-none focus:ring focus:ring-gray-700 dark:border-gray-900 dark:bg-editor-dark"
       @click="copy(formattedOutput)"
     >
       Copy Snippet
     </button>
   </div>
 </template>
-
