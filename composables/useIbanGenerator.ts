@@ -1,18 +1,24 @@
 import { useClipboard } from '@vueuse/core'
 
-export default function useIbanGenerator() {
+export default function useIbanGenerator(separator: Ref<string>, countryCode: Ref<string>) {
   const separatorOptions = [
     { label: 'Whitespace', value: ' ' },
     { label: 'Dash', value: '-' },
     { label: 'None', value: '' },
   ]
 
-  const selectedCountry = ref(
-    { code: 'FR', name: 'France' },
-  )
+  const countriesOptions = [
+    { label: 'United Kingdoms', code: 'EN' },
+    { label: 'France', code: 'FR' },
+    { label: 'Germany', code: 'DE' },
+    { label: 'Spain', code: 'ES' },
+    { label: 'Portugal', code: 'PT' },
+    { label: 'Russia', code: 'RU' },
+    { label: 'Japan', code: 'JA' },
+    { label: 'Korea', code: 'KO' },
+    { label: 'China', code: 'ZH' },
+  ] as const
 
-  const countryCode = ref('FR')
-  const separator = ref(' ')
   const firstPart = ref(getRandomDigits(2))
   const secondPart = ref(getRandomDigits(4))
   const thirdPart = ref(getRandomDigits(4))
@@ -21,7 +27,7 @@ export default function useIbanGenerator() {
   const sixthPart = ref(getRandomDigits(4))
   const seventhPart = ref(getRandomDigits(3))
 
-  const toast = useToast()
+  const { toast } = useToast()
 
   function getRandomDigits(length: number) {
     return Math.floor(10 ** (length - 1) + Math.random() * (10 ** length - 10 ** (length - 1) - 1))
@@ -33,15 +39,11 @@ export default function useIbanGenerator() {
 
   watch(copied, () => {
     if (copied.value) {
-      toast.add({
+      toast({
         title: 'Copied to clipboard !',
-        timeout: 3000,
-        color: 'green',
       })
     }
   })
-
-  watch(selectedCountry, newCountry => countryCode.value = newCountry.code)
 
   function generateNewIban() {
     firstPart.value = getRandomDigits(2)
@@ -55,10 +57,9 @@ export default function useIbanGenerator() {
 
   return {
     iban,
-    selectedCountry,
     copyIban,
-    separator,
     separatorOptions,
     generateNewIban,
+    countriesOptions,
   }
 }

@@ -1,28 +1,30 @@
 import { useClipboard } from '@vueuse/core'
 
-export default function useEmailGenerator() {
-  const email = ref('')
+export default function useEmailGenerator(local: Ref<number[]>, domain: Ref<number[]>) {
+  const tldLength = ref(Math.floor(Math.random() * (5 - 1 + 1)) + 1)
 
-  const toast = useToast()
-  const { copy, copied } = useClipboard({ legacy: true, source: email.value })
+  const email = computed(() => {
+    return `${getRandomString(local.value[0])}@${getRandomString(domain.value[0] - tldLength.value)}.${getRandomString(tldLength.value)}`
+  })
 
-  function generateEmail() {
-    email.value = `${getRandomString(6)}@${getRandomString(5)}.${getRandomString(3)}`
-    copy(email.value)
+  function generateNewEmail() {
+    // Forces the whole `email` computed to reset since `tldLength` is a reactive dependency and strings are random
+    tldLength.value = Math.floor(Math.random() * (5 - 1 + 1)) + 1
   }
+
+  const { copy: copyEmail, copied } = useClipboard({ legacy: true, source: () => email.value })
 
   watch(copied, () => {
     if (copied.value) {
-      toast.add({
+      toast({
         title: 'Copied to clipboard !',
-        timeout: 3000,
-        color: 'green',
       })
     }
   })
 
   return {
-    generateEmail,
+    generateNewEmail,
+    copyEmail,
     email,
   }
 }

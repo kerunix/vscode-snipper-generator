@@ -3,7 +3,7 @@ import { useClipboard } from '@vueuse/core'
 export default function useBicGenerator() {
   const bic = ref('')
 
-  const toast = useToast()
+  // const toast = useToast()
   const { copy, copied } = useClipboard({ legacy: true, source: bic.value })
 
   function generateBic() {
@@ -13,11 +13,11 @@ export default function useBicGenerator() {
 
   watch(copied, () => {
     if (copied.value) {
-      toast.add({
-        title: 'Copied to clipboard !',
-        timeout: 3000,
-        color: 'green',
-      })
+      // toast.add({
+      //   title: 'Copied to clipboard !',
+      //   timeout: 3000,
+      //   color: 'green',
+      // })
     }
   })
 

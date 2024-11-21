@@ -4,7 +4,7 @@ import getRandomDigits from '~/utils/getRandomDigits'
 export default function usePhoneNumberGenerator() {
   const phoneNumber = ref('')
 
-  const toast = useToast()
+  // const toast = useToast()
   const { copy, copied } = useClipboard({ legacy: true, source: phoneNumber.value })
 
   function generatePhoneNumber() {
@@ -14,11 +14,11 @@ export default function usePhoneNumberGenerator() {
 
   watch(copied, () => {
     if (copied.value) {
-      toast.add({
-        title: 'Copied to clipboard !',
-        timeout: 3000,
-        color: 'green',
-      })
+      // toast.add({
+      //   title: 'Copied to clipboard !',
+      //   timeout: 3000,
+      //   color: 'green',
+      // })
     }
   })
 
